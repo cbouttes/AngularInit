@@ -1,0 +1,24 @@
+.menu-a ul li a .menu-icon {
+  position: absolute;
+  display: inline;
+  left: 100%;
+  text-align: center;
+  color: #f56a6a !important;
+}
+
+.menu-icon i:before {
+  line-height: 24px;
+}
+
+.menu-icon i:after {
+  transform: rotate(45deg);
+  border-radius: 0.25rem;
+  border: solid 2px rgba(210, 215, 217, 0.75);
+  content: '';
+  display: block;
+  height: 24px;
+  position: relative;
+  top: -24px;
+  width: 24px;
+  box-shadow: rgba(14, 30, 37, 0.12) 0 2px 4px 0, rgba(14, 30, 37, 0.32) 0 2px 16px 0;
+}

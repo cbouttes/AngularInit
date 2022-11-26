@@ -1,0 +1,45 @@
+<div id="wrapper-cours" style="font-size: 1.25em !important;">
+  <!-- Main -->
+  <div id="main" style="width: 75%">
+    <div class="inner" style="padding: 2em !important;">
+      <header class="major" style="text-align: center">
+        <h2 style="padding: 0">{{cours.nom}}</h2>
+      </header>
+      <!-- Content -->
+      <section #container style="padding: 0 0 2em 0 !important;">
+        <ng-container *ngTemplateOutlet="c; context: {chapitres: cours.chapitres}"></ng-container>
+      </section>
+    </div>
+  </div>
+  <!-- Sidebar -->
+  <div id="sidebar" class="center">
+    <div class="inner" style="width: 100% !important;">
+      <!-- Menu -->
+      <nav class="menu-a">
+        <header class="major">
+          <h2>{{cours.nom}}</h2>
+        </header>
+        <ul>
+          <app-chapitre-menu [chapitres]="cours.chapitres" [container]="container"></app-chapitre-menu>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+<ng-template #c let-chapitres='chapitres'>
+  <ng-container *ngFor="let chapitre of chapitres">
+    <ng-container *ngTemplateOutlet="cour; context: {chapitre: chapitre}"></ng-container>
+    <div *ngIf="chapitre.chapitres" style="padding-left: 1em; border-left: #7f888f 1px dashed">
+      <ng-container *ngTemplateOutlet="c; context: {chapitres: chapitre.chapitres}"></ng-container>
+    </div>
+  </ng-container>
+</ng-template>
+
+<ng-template #cour let-chapitre='chapitre'>
+  <div [id]="chapitre.nom.replace(' ','')">
+    <hr>
+    <h3><strong>{{chapitre.nom}}</strong></h3>
+    <app-text-code [text]="chapitre.texte"></app-text-code>
+  </div>
+</ng-template>

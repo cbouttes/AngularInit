@@ -1,0 +1,16 @@
+<!-- Menu -->
+<nav class="menu-a">
+  <header class="major">
+    <h2>Menu</h2>
+  </header>
+  <ul>
+    <li *ngFor="let topic of topics; let first = first">
+      <a [routerLink]="topic.route">
+        {{topic.title}}
+        <div class="menu-icon">
+          <i class="{{topic.icon || 'fab fa-angular'}}"></i>
+        </div>
+      </a>
+    </li>
+  </ul>
+</nav>

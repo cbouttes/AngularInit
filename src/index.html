@@ -4,10 +4,47 @@
   <meta charset="utf-8">
   <title>Project</title>
   <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1, user-scalable=no" name="viewport"/>
+  <link href="favicon.ico" rel="icon" type="image/x-icon">
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
-<body>
-  <app-root></app-root>
+<body class="mat-typography is-preload">
+<!-- Wrapper -->
+<div id="wrapper">
+  <!-- Main -->
+  <div id="main">
+    <div class="inner">
+      <div class="l-shadow">
+        <div style="height: 2em">
+          <app-header></app-header>
+        </div>
+        <div style="height: calc(100% - 2em)">
+          <app-root></app-root>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Sidebar -->
+  <div class="inactive" id="sidebar">
+    <div class="inner">
+      <!-- Search -->
+      <section class="alt" id="search">
+        <a class="menu-title" href="">
+          Dawan
+          <img src="assets/img/angular-icon.png">
+        </a>
+      </section>
+      <app-side></app-side>
+    </div>
+  </div>
+</div>
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/browser.min.js"></script>
+<script src="assets/js/breakpoints.min.js"></script>
+<script src="assets/js/util.js"></script>
+<script src="assets/js/main.js"></script>
 </body>
 </html>

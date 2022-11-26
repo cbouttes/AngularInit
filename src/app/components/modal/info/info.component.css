@@ -1,0 +1,6 @@
+.info {
+  height: 50vh;
+  width: 70vw;
+  background: url(/assets/img/bg.jpg) bottom no-repeat;
+  display: flex;
+}

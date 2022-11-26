@@ -1,0 +1,35 @@
+.features article {
+  width: calc(100% - 5em);
+  max-height: 50vh;
+}
+
+.icon:hover:before {
+  content: '\f128';
+}
+
+.exercice {
+  margin: 1em 0 10px 3em;
+  flex: 1;
+  background-color: #3d444914;
+  padding: 15px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0 18px 36px -18px inset;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+pre {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.features {
+  padding-bottom: .5em;
+  flex-direction: column;
+}
+
+.info-texte {
+  display: flex;
+  flex-direction: column;
+}

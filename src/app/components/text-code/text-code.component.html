@@ -1,0 +1,4 @@
+<ng-container *ngFor="let chTexte of textCode">
+  <pre *ngIf="chTexte.type === types.PLAIN" [innerHTML]="chTexte.text" style="white-space: pre-line"></pre>
+  <pre *ngIf="chTexte.type === types.CODE"><code [highlight]="chTexte.text | style"></code></pre>
+</ng-container>

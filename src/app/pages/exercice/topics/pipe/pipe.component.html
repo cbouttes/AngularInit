@@ -1,0 +1,52 @@
+<div class="row h100">
+  <div class="col-12 row">
+    <div class="col-6 row" style="justify-content: center; flex-direction: column">
+      <p>Utilisez le pipe Date pour transformer la date entrée ci-dessous aux formats ci-contre</p>
+      <div class="col-12">
+        <label>Date</label>
+        <div class="row" style="margin: 0">
+          <input [(ngModel)]="date" [ngxMatDatetimePicker]="picker" class="col-11" name="date" type="text">
+          <mat-datepicker-toggle [for]="$any(picker)" class="col-1" matSuffix></mat-datepicker-toggle>
+        </div>
+        <ngx-mat-datetime-picker #picker [showSpinners]="true" [touchUi]="true">
+        </ngx-mat-datetime-picker>
+      </div>
+    </div>
+    <div class="col-6 row">
+      <label class="col-12">
+        ex: June 15, 2015 :
+        <input [(ngModel)]="date" disabled name="date" type="text">
+      </label>
+      <label class="col-12">
+        ex: 9:03 AM :
+        <input [(ngModel)]="date" disabled name="date" type="text">
+      </label>
+      <label class="col-12">
+        ex: Jun 15, 2015, 9:00:00 AM :
+        <input [(ngModel)]="date" disabled name="date" type="text">
+      </label>
+    </div>
+  </div>
+  <div class="col-12 row">
+    <div class="col-6 row" style="justify-content: center; flex-direction: column">
+      <div class="col-12 row">
+        <p>Créez un pipe personnalisé prenant un objet de type Personne en entrée et retournant une présentation
+          similaire à l'exemple ci-contre</p>
+        <label class="col-6">
+          Nom :
+          <input [(ngModel)]="personne.nom" name="nom" type="text">
+        </label>
+        <label class="col-6">
+          Prenom :
+          <input [(ngModel)]="personne.prenom" name="prenom" type="text">
+        </label>
+      </div>
+    </div>
+    <div class="col-6 row" style="justify-content: space-evenly; flex-direction: column">
+      <label class="col-12">
+        ex: Je suis GRENOIR Edward :
+        <input [(ngModel)]="personne" disabled name="person" type="text">
+      </label>
+    </div>
+  </div>
+</div>

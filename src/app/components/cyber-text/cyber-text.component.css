@@ -1,0 +1,22 @@
+.text {
+  background: url(/assets/img/p3-text.png) 0 0 no-repeat;
+  height: 100%;
+  background-size: 100% 100%;
+  padding: 0.5405% 3.0172% 5.4054% 6.7567%;
+}
+
+.text h1 {
+  width: 56.681%;
+  height: 6.7567%;
+  margin-bottom: 1.2974%;
+  text-transform: uppercase;
+  font-weight: bold;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+::ng-deep .mat-dialog-container {
+  background: url(/assets/img/bg.jpg) 0 0 no-repeat;
+  background-size: 100% 100%;
+}

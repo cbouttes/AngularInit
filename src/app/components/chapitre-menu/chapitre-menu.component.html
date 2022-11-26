@@ -1,0 +1,9 @@
+<li *ngFor="let chapitre of chapitres">
+  <a (click)="scrollTo(chapitre.nom)" *ngIf="!chapitre.chapitres">{{chapitre.nom}}</a>
+  <ng-container *ngIf="chapitre.chapitres">
+    <span class="opener" (click)="open($event)"><p (click)="scrollTo(chapitre.nom)">{{chapitre.nom}}</p></span>
+    <ul>
+      <app-chapitre-menu [chapitres]="chapitre.chapitres" [container]="container"></app-chapitre-menu>
+    </ul>
+  </ng-container>
+</li>
