@@ -1,7 +1,7 @@
 <div class="h-100 w-100 d-flex flex-wrap justify-content-evenly align-items-center">
   <a *ngFor="let info of topics" [routerLink]="info.route">
     <article class="struct-scheme">
-      <span class="icon {{info.icon || 'fa-gem'}}" style="margin-left: 2em"></span>
+      <span class="icon {{info.icon || 'fa-gem'}} m-0"></span>
       <h3 style="font-weight: bold; text-align: center">{{info.title}}</h3>
     </article>
   </a>

@@ -396,7 +396,8 @@ La différence essentielle entre les deux définition réside dans la nécessit�
         icon: 'fas fa-link',
         chapitres: [
           {
-            nom: "Source ↦ Vue", texte: `La méthode la plus simple pour lier une donnée est de la transférer vers la vue et cela est possible de 2 façons :`,
+            nom: "Source ↦ Vue",
+            texte: `La méthode la plus simple pour lier une donnée est de la transférer vers la vue et cela est possible de 2 façons :`,
             chapitres: [
               {
                 nom: "{{Interpolation}}",
@@ -577,22 +578,91 @@ Exemple :
         icon: 'fas fa-compass-drafting',
         chapitres: [
           {
-            nom: "Directives intégrées", texte: `Angular fournit des directives pour gérer les formulaires, les listes, les styles et l'affichage. Les composant sont un exemple de directive.`,
+            nom: "Directives intégrées",
+            texte: `Angular fournit des directives pour gérer les formulaires, les listes, les styles et l'affichage. Les composant sont un exemple de directive.`,
             chapitres: [
               {
-              nom: "Directives d'attribut", texte: `Ces directives modifient l'apparence ou le comportement d'un élément, d'un composant ou même d'une autre directive.`,
-              chapitres: [
-                {
-                  nom: "[NgClass]", texte: `NgClass permet de gérer plusieures classes à la fois (préférer le binding si il n'y en a qu'une). Elle fonctionne sur le principe d'association de variable booléenne au nom d'une classe`,
-                },
-                {
-                  nom: "[NgStyle]", texte: `Angular fournit des directives pour gérer les formulaires, les listes, les styles et l'affichage. Les composant sont un exemple de directive.`,
-                },
-                {
-                  nom: "[NgModel]", texte: `Angular fournit des directives pour gérer les formulaires, les listes, les styles et l'affichage. Les composant sont un exemple de directive.`,
-                }
-              ]
-            }
+                nom: "Directives d'attribut",
+                texte: `Ces directives modifient l'apparence ou le comportement d'un élément, d'un composant ou même d'une autre directive.`,
+                chapitres: [
+                  {
+                    nom: "[NgClass]",
+                    texte: `NgClass permet de gérer plusieures classes à la fois (préférer le binding si il n'y en a qu'une). Elle fonctionne sur le principe d'association de variables booléennes et de noms de classes.
+La syntaxe utilise généralement une expression ternaire de la forme 'condition ? classeSiOui : classeSiNon' :
+<code><!-- Appliques ou non la classe "special" selon l'état de la propriété "isSpecial" -->
+<div [ngClass]="isSpecial ? 'special' : ''">Div Spéciale</div></code>.
+La directive peur aussi être utilisée avec une variable contenant toutes les associations comme c'est le cas pour la directive suivante.`,
+                  },
+                  {
+                    nom: "[NgStyle]",
+                    texte: `De la même façon que la directive NgClasse gère les classes, NgStyle permet la gestion de plusieurs attributs de styles à la fois. Afin de les modifier à l'aide d'une fonction et les appliquer à un élément il est possible de procéder comme tel :
+Dans le script ts :
+<code>currentStyles: Record<string, string> = {}; // Variable prête à recevoir les informations
+setCurrentStyles() { // Associe une valeur d'attribut de style selon l'état de variables
+  this.currentStyles = {
+    'font-style':  this.canSave      ? 'italic' : 'normal',
+    'font-weight': !this.isUnchanged ? 'bold'   : 'normal',
+    'font-size':   this.isSpecial    ? '24px'   : '12px'
+  };
+}</code>
+Dans le template html :
+<code><div [ngStyle]="currentStyles">
+  Cette Div change de style à l'appel de la fonction setCurrentStyles().
+</div></code>`,
+                  },
+                  {
+                    nom: "[NgModel]",
+                    texte: `NgModel permet d'afficher une donnée et de la mettre à jour quand l'utilisateur la modifie. Cette directive nécéssite l'import de FormsModule dans le module de base AppModule:
+<code>...
+import { FormsModule } from '@angular/forms';
+...
+@NgModule({
+ ...
+  imports: [
+    ...,
+    FormsModule,
+    ...
+  ],
+...
+})
+export class AppModule { }</code>
+Ainsi il est possible de l'utiliser sur tout élément de formulaire :
+<code><label>{{currentItem.name}}:</label>
+<input [(ngModel)]="currentItem.name" name="example-ngModel"></code>
+Cette syntaxe est une version simpliflée de celle-ci :
+<code><input [ngModel]="currentItem.name" (ngModelChange)="currentItem.name = $event" name="example-full-ngModel"><code>`,
+                  }
+                ]
+              },
+              {
+                nom: "Directives structurelles",
+                texte: `Ces directives modifient la structure du DOM en ajoutant ou supprimant des éléments. Attention toutefois : il ne peut y avoir qu'une seule directive structurelle par élément. Afin de combiner des directives, il faudra utiliser des éléments avec une directive contenus dans d'autres éléments avec une directive.`,
+                chapitres: [
+                  {
+                    nom: "*ngIf",
+                    texte: `ngIf ajoute (ou supprime) un élément selon une condition qui peut être représentée par une expression ou une variable.
+Si une expression ou une variable booléenne est utilisée, l'élément ne sera affichée que si la condition retourne true. Pour tout autre type de variable, ngIf agit comme une protection contre les valeurs dites 'Falsy' (null, undefined, '', 0, ...) en ce sens que l'élément ne sera affiché que si il est différent de ces valeurs.
+
+Exemple :
+<code>// Affiche le composant app-active si isActive est true
+<app-active *ngIf="isActive""></app-active>
+// Affiche le componant app-item-detail si item n'est pas null ou undefined
+<app-item-detail *ngIf="item" [item]="item"></app-item-detail> </code>`,
+                  },
+                  {
+                    nom: "*ngFor",
+                    texte: `ngFor répète l'élément pour chaque objet dans une liste ou tableau tout en définissant une variable utilisable pour chaque itération :
+<code>// Répète une div par élements d'items et utilise la variable item pour afficher le name de chaque élément
+<div *ngFor="let item of items">{{item.name}}</div>
+// Répète le composant app-item-detail et lui transmet l'item pour chaque itération
+<app-item-detail *ngFor="let item of items" [item]="item"></app-item-detail></code>`,
+                  },
+                  {
+                    nom: "*ngSwitch",
+                    texte: `Angular fournit des directives pour gérer les formulaires, les listes, les styles et l'affichage. Les composant sont un exemple de directive.`,
+                  }
+                ]
+              }
             ]
           },
           {
@@ -806,7 +876,9 @@ export class LibraryComponent {
   }
 
   static getChildren(topic: Topic): Routes {
-    return this.topicsInfos.get(topic)?.children.map(child => {return {path: '', component: child}}) || [];
+    return this.topicsInfos.get(topic)?.children.map(child => {
+      return {path: '', component: child}
+    }) || [];
   }
 
   static getInfo(topic: Topic): Info | undefined {

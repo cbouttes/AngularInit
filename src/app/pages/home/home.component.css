@@ -4,4 +4,5 @@ a:hover .struct-scheme {
 
 .struct-scheme {
   transition: background-color 1s;
+  margin: 1em 3em;
 }
