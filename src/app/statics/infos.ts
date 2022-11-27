@@ -2,7 +2,7 @@ import {Topic} from "./topic";
 import {Routes} from "@angular/router";
 import {PipeComponent} from "../pages/exercice/topics/pipe/pipe.component";
 import {Chapitre} from "../models/cours";
-import {Component, TemplateRef} from "@angular/core";
+import {TemplateRef} from "@angular/core";
 import {Exemple, INSTALL_EXEMPLE, PIPE_EXEMPLE, ROUTING_EXEMPLE} from "./exemples";
 import {InstallComponent} from "../pages/exercice/topics/install/install.component";
 
@@ -389,6 +389,286 @@ La différence essentielle entre les deux définition réside dans la nécessit�
       }
     ],
     [
+      Topic.BINDING,
+      {
+        route: 'Binding',
+        title: 'Data Binding',
+        icon: 'fas fa-link',
+        chapitres: [
+          {
+            nom: "Source ↦ Vue", texte: `La méthode la plus simple pour lier une donnée est de la transférer vers la vue et cela est possible de 2 façons :`,
+            chapitres: [
+              {
+                nom: "{{Interpolation}}",
+                texte: `Utilisé directement pour l'affichage, l'interpolation implique l'utilisation des {{}}, intimement appelées "Balise Moustache"
+                <code> {{expression}} </code>
+Le résultat obtenu est alors l'affichage de la valeur de "expression" et sa mise à jour en cas de changement.`
+              },
+              {
+                nom: "[Property]",
+                texte: `Cette syntaxe permet de 'lier' une variable donnée à une autre appartenant à un autre élément.
+L'élément ou composant s'attendant à recevoir une donnée préfixe la variable d'entrée du décorateur @Input() :
+<code>import { Component, Input } from '@angular/core'; // Import Input
+export class ItemDetailComponent {
+  @Input() item = '';
+}</code>
+Ainsi à l'utilisation il suffit de procéder comme suit :
+<code><app-item-detail [item]="currentItem"></app-item-detail>
+<input [value]="currentItem"/></code>`
+              }
+            ]
+          },
+          {
+            nom: "Source ↤ Vue",
+            texte: "Le binding inverse corresponds à l'écoute d'un évenement : il s'agit de mettre à jour notre variable au déclenchement de l'évènement.",
+            chapitres: [
+              {
+                nom: "(Event)",
+                texte: `L'élément ou composant s'attendant à recevoir une donnée préfixe la variable de sortie du décorateur @Output() :
+<code>import { Component, Output } from '@angular/core'; // Import Output
+export class ItemOutputComponent {
+  @Output() newItemEvent = new EventEmitter<string>();
+  addNewItem(value: string) {
+    this.newItemEvent.emit(value); // Emission de la nouvelle valeur
+  }
+}</code>
+La variable suivant le décorateur @Output() est 'toujours' un EventEmitter du type de la donnée émise (ci-dessus type string).
+Le composant s'assure d'utiliser la méthode emit(value) afin de déclencher l'évènement.
+Ainsi à le composant attendant ce déclenchement se prépare ainsi:
+<code><app-item-output (newItemEvent)="addItem($event)"></app-item-output>
+<button type="button" (click)="onSave()">Save</button></code>`
+              }
+            ]
+          },
+          {
+            nom: "Source ⇆ Vue",
+            texte: `Il est possible de combiner les principes précédents afin de gérer des liaisons dans les 2 sens :
+<code><app-input-output
+  [item]="currentItem"
+  (deleteRequest)="crossOffItem($event)">
+</app-input-output></code>
+Toutefois il existe une syntaxe simplifiée.`,
+            chapitres: [
+              {
+                nom: "[(ngModel)]",
+                texte: `Lorsque l'on souhaite faire passer une donnée en entrée et que l'on s'attends à ce qu'elle soit mise à jour également, on parles alors de 'Two-Way Data binding'.
+Pour que cela fonctionne, la propriété @Output() doit utiliser le modèle inputChange, où 'input' est le nom de la propriété @Input(). Par exemple, si la propriété @Input() est size, la propriété @Output() doit être sizeChange.
+Ce composant :
+<code>export class SizerComponent {
+  @Input()  size: number = 10;
+  @Output() sizeChange = new EventEmitter<number>();
+  resize(delta: number) {
+    this.size = delta;
+    this.sizeChange.emit(this.size);
+  }
+}</code>
+Peut être appelé ainsi :
+<code><app-sizer [(size)]="fontSizePx"></app-sizer></code>
+Ce comportement n'est pas sans rapeller celui du [(ngModel)] puisqu'il fonctionne de la même façon sur des éléments de formulaire :
+<code><input name="titre" [(ngModel)]="title"></code>`
+              }
+            ]
+          }
+        ],
+        texte: `Le data binding est la méthode par laquelle une donnée est associée à un élément du template.`,
+        exemple: PIPE_EXEMPLE,
+        children: [PipeComponent]
+      }
+    ],
+    [
+      Topic.PIPE,
+      {
+        route: 'Pipe',
+        title: 'Pipes',
+        icon: 'fas fa-code',
+        chapitres: [
+          {
+            nom: "Définition", texte: `Les pipes permettent d’appliquer des transformations sur des données depuis le template HTML. <a href="https://angular.io/generated/live-examples/pipes/stackblitz.html" target="_blank">Live Exemple</a>
+
+Un pipe est défini par :
+
+ • une donnée en entrée (paramètre)
+ • une donnée en sortie (valeur de retour)
+ • une fonction de transformation (mapping)
+
+Et si besoin, on peut envoyer un paramètre en plus de la valeur d'input.
+
+Exemple:
+<code><p> Date de réception : {{ receptionDate | date | uppercase }} </p></code>`
+          },
+          {
+            nom: "Pipes Natifs", texte: `Angular fournit des pipes intégrés pour les transformations de données courantes, qui utilisent les informations locales pour formater les données.
+
+ Les pipes suivants sont couramment utilisés :
+<ul>
+<li><a href="https://angular.io/api/common/DatePipe">DatePipe</a>: Formate une date donnée conformément à la Locale.</li>
+<li><a href="https://angular.io/api/common/UpperCasePipe">UpperCasePipe</a>: Transforme un texte en lettres majuscules.</li>
+<li><a href="https://angular.io/api/common/LowerCasePipe">LowerCasePipe</a>: Transforme un texte en lettres minuscules.</li>
+<li><a href="https://angular.io/api/common/CurrencyPipe">CurrencyPipe</a>: Transforme un nombre en un string avec le symbole de la monnaie locale.</li>
+<li><a href="https://angular.io/api/common/DecimalPipe">DecimalPipe</a>: Transforme un nombre en un string string de sa valeur décimale. (Peut être utilisé pour fixer le nombre de caractères attendus en sortie.)</li>
+<li><a href="https://angular.io/api/common/PercentPipe">PercentPipe</a>: Transforme un nombre en un string de sa valeur en pourcentage.</li>
+</ul>`
+          },
+          {
+            nom: "Pipes Customisés",
+            texte: "Il est possible de créer ses propres pipes afin de personnaliser (voire simplifier) l'affichage d'une donnée.",
+            chapitres: [
+              {
+                nom: "Génération",
+                texte: `La commande suivante (ou sa forme simplifiée), exécutée à la racine du projet (ou dans un sous-répertoire de 'src') suffit pour générer un composant grace au CLI Angular:
+                  <code> ng generate pipe {nomDuPipe} ( simplifiée : ng g p {nomDuPipe} ) </code>
+Ce qui génere un résultat tel que celui-ci:
+<code>import { Pipe, PipeTransform } from '@angular/core';
+
+@Pipe({
+  name: 'nomDuPipe'
+})
+export class NomDuPipePipe implements PipeTransform {
+
+  transform(value: unknown, ...args: unknown[]): unknown {
+    return null;
+  }
+
+}</code>`
+              },
+              {
+                nom: "Mapping",
+                texte: `La classe générée par le CLI implémente l'interface <a href="https://angular.io/api/core/PipeTransform" target="_blank">PipeTransform</a> d'où la présence de la méthode transform()
+Le type de la valeur d'entrée (value) peut être adaptée au type attendu.
+Les paramètres éventuellement passés (...args) peuvent aussi être typées différemment (par une variable unique ou plusieures par exemple)
+
+Dans l'exemple suivant, TruncatePipe récupère une chaine de caractères en entrée et remplace par '...' ceux qui suivent le second espace.
+<code>import {Pipe, PipeTransform} from '@angular/core';
+
+@Pipe({name: 'truncate'})
+export class TruncatePipe implements PipeTransform {
+  transform(value: string) {
+    return value.split(' ').slice(0, 2).join(' ') + '...';
+  }
+}</code>
+Exemple :
+<code> {{ 'It was the best of times' | truncate }} //Sortie: It was...</code>
+
+Cette fois il va accepter 2 arguments : le nombre d'espace à partir duquel la chaine sera tronquée, et le symbole qui représentera la troncature.
+<code>import {Pipe, PipeTransform} from '@angular/core';
+
+@Pipe({name: 'truncate'})
+export class TruncatePipe implements PipeTransform {
+  transform(value: string, length: number, symbol: string) {
+    return value.split(' ').slice(0, length).join(' ') + symbol;
+  }
+}</code>
+Exemple :
+<code> {{ 'It was the best of times' | truncate:4:'(...)' }} //Sortie: It was the best(...)</code>`
+              }
+            ]
+          }
+        ],
+        texte: `Les Pipes sont des filtres utilisables directement depuis la vue afin de transformer les valeurs lors du "binding".`,
+        exemple: PIPE_EXEMPLE,
+        children: [PipeComponent]
+      }
+    ],
+    [
+      Topic.DIRECTIVE,
+      {
+        route: 'Directive',
+        title: 'Directives',
+        icon: 'fas fa-compass-drafting',
+        chapitres: [
+          {
+            nom: "Directives intégrées", texte: `Angular fournit des directives pour gérer les formulaires, les listes, les styles et l'affichage. Les composant sont un exemple de directive.`,
+            chapitres: [
+              {
+              nom: "Directives d'attribut", texte: `Ces directives modifient l'apparence ou le comportement d'un élément, d'un composant ou même d'une autre directive.`,
+              chapitres: [
+                {
+                  nom: "[NgClass]", texte: `NgClass permet de gérer plusieures classes à la fois (préférer le binding si il n'y en a qu'une). Elle fonctionne sur le principe d'association de variable booléenne au nom d'une classe`,
+                },
+                {
+                  nom: "[NgStyle]", texte: `Angular fournit des directives pour gérer les formulaires, les listes, les styles et l'affichage. Les composant sont un exemple de directive.`,
+                },
+                {
+                  nom: "[NgModel]", texte: `Angular fournit des directives pour gérer les formulaires, les listes, les styles et l'affichage. Les composant sont un exemple de directive.`,
+                }
+              ]
+            }
+            ]
+          },
+          {
+            nom: "Pipes Natifs", texte: `Angular fournit des pipes intégrés pour les transformations de données courantes, qui utilisent les informations locales pour formater les données.
+
+ Les pipes suivants sont couramment utilisés :
+<ul>
+<li><a href="https://angular.io/api/common/DatePipe">DatePipe</a>: Formate une date donnée conformément à la Locale.</li>
+<li><a href="https://angular.io/api/common/UpperCasePipe">UpperCasePipe</a>: Transforme un texte en lettres majuscules.</li>
+<li><a href="https://angular.io/api/common/LowerCasePipe">LowerCasePipe</a>: Transforme un texte en lettres minuscules.</li>
+<li><a href="https://angular.io/api/common/CurrencyPipe">CurrencyPipe</a>: Transforme un nombre en un string avec le symbole de la monnaie locale.</li>
+<li><a href="https://angular.io/api/common/DecimalPipe">DecimalPipe</a>: Transforme un nombre en un string string de sa valeur décimale. (Peut être utilisé pour fixer le nombre de caractères attendus en sortie.)</li>
+<li><a href="https://angular.io/api/common/PercentPipe">PercentPipe</a>: Transforme un nombre en un string de sa valeur en pourcentage.</li>
+</ul>`
+          },
+          {
+            nom: "Pipes Customisés",
+            texte: "Il est possible de créer ses propres pipes afin de personnaliser (voire simplifier) l'affichage d'une donnée.",
+            chapitres: [
+              {
+                nom: "Génération",
+                texte: `La commande suivante (ou sa forme simplifiée), exécutée à la racine du projet (ou dans un sous-répertoire de 'src') suffit pour générer un composant grace au CLI Angular:
+                  <code> ng generate pipe {nomDuPipe} ( simplifiée : ng g p {nomDuPipe} ) </code>
+Ce qui génere un résultat tel que celui-ci:
+<code>import { Pipe, PipeTransform } from '@angular/core';
+
+@Pipe({
+  name: 'nomDuPipe'
+})
+export class NomDuPipePipe implements PipeTransform {
+
+  transform(value: unknown, ...args: unknown[]): unknown {
+    return null;
+  }
+
+}</code>`
+              },
+              {
+                nom: "Mapping",
+                texte: `La classe générée par le CLI implémente l'interface <a href="https://angular.io/api/core/PipeTransform" target="_blank">PipeTransform</a> d'où la présence de la méthode transform()
+Le type de la valeur d'entrée (value) peut être adaptée au type attendu.
+Les paramètres éventuellement passés (...args) peuvent aussi être typées différemment (par une variable unique ou plusieures par exemple)
+
+Dans l'exemple suivant, TruncatePipe récupère une chaine de caractères en entrée et remplace par '...' ceux qui suivent le second espace.
+<code>import {Pipe, PipeTransform} from '@angular/core';
+
+@Pipe({name: 'truncate'})
+export class TruncatePipe implements PipeTransform {
+  transform(value: string) {
+    return value.split(' ').slice(0, 2).join(' ') + '...';
+  }
+}</code>
+Exemple :
+<code> {{ 'It was the best of times' | truncate }} //Sortie: It was...</code>
+
+Cette fois il va accepter 2 arguments : le nombre d'espace à partir duquel la chaine sera tronquée, et le symbole qui représentera la troncature.
+<code>import {Pipe, PipeTransform} from '@angular/core';
+
+@Pipe({name: 'truncate'})
+export class TruncatePipe implements PipeTransform {
+  transform(value: string, length: number, symbol: string) {
+    return value.split(' ').slice(0, length).join(' ') + symbol;
+  }
+}</code>
+Exemple :
+<code> {{ 'It was the best of times' | truncate:4:'(...)' }} //Sortie: It was the best(...)</code>`
+              }
+            ]
+          }
+        ],
+        texte: `Les directives sont des classes qui ajoutent un comportement supplémentaire aux éléments de l'application. Angular en fournis certaines pour gérer les formulaires, les listes, les styles et ce que les utilisateurs voient.`,
+        exemple: PIPE_EXEMPLE,
+        children: [PipeComponent]
+      }
+    ],
+    [
       Topic.ROUTING,
       {
         route: 'Routing',
@@ -517,100 +797,6 @@ export class LibraryComponent {
         ],
         exemple: ROUTING_EXEMPLE,
         children: []
-      }
-    ],
-    [
-      Topic.PIPE,
-      {
-        route: 'Pipe',
-        title: 'Pipes',
-        icon: 'fas fa-code',
-        chapitres: [
-          {
-            nom: "Définition", texte: `Les pipes permettent d’appliquer des transformations sur des données depuis le template HTML. <a href="https://angular.io/generated/live-examples/pipes/stackblitz.html" target="_blank">Live Exemple</a>
-
-Un pipe est défini par :
-
- • une donnée en entrée (paramètre)
- • une donnée en sortie (valeur de retour)
- • une fonction de transformation (mapping)
-
-Et si besoin, on peut envoyer un paramètre en plus de la valeur d'input.
-
-Exemple:
-<code><p> Date de réception : {{ receptionDate | date | uppercase }} </p></code>`
-          },
-          {
-            nom: "Pipes Natifs", texte: `Angular fournit des pipes intégrés pour les transformations de données courantes, qui utilisent les informations locales pour formater les données.
-
- Les pipes suivants sont couramment utilisés :
-<ul>
-<li><a href="https://angular.io/api/common/DatePipe">DatePipe</a>: Formate une date donnée conformément à la Locale.</li>
-<li><a href="https://angular.io/api/common/UpperCasePipe">UpperCasePipe</a>: Transforme un texte en lettres majuscules.</li>
-<li><a href="https://angular.io/api/common/LowerCasePipe">LowerCasePipe</a>: Transforme un texte en lettres minuscules.</li>
-<li><a href="https://angular.io/api/common/CurrencyPipe">CurrencyPipe</a>: Transforme un nombre en un string avec le symbole de la monnaie locale.</li>
-<li><a href="https://angular.io/api/common/DecimalPipe">DecimalPipe</a>: Transforme un nombre en un string string de sa valeur décimale. (Peut être utilisé pour fixer le nombre de caractères attendus en sortie.)</li>
-<li><a href="https://angular.io/api/common/PercentPipe">PercentPipe</a>: Transforme un nombre en un string de sa valeur en pourcentage.</li>
-</ul>`
-          },
-          {
-            nom: "Pipes Customisés",
-            texte: "Il est possible de créer ses propres pipes afin de personnaliser (voire simplifier) l'affichage d'une donnée.",
-            chapitres: [
-              {
-                nom: "Génération",
-                texte: `La commande suivante (ou sa forme simplifiée), exécutée à la racine du projet (ou dans un sous-répertoire de 'src') suffit pour générer un composant grace au CLI Angular:
-                  <code> ng generate pipe {nomDuPipe} ( simplifiée : ng g p {nomDuPipe} ) </code>
-Ce qui génere un résultat tel que celui-ci:
-<code>import { Pipe, PipeTransform } from '@angular/core';
-
-@Pipe({
-  name: 'nomDuPipe'
-})
-export class NomDuPipePipe implements PipeTransform {
-
-  transform(value: unknown, ...args: unknown[]): unknown {
-    return null;
-  }
-
-}</code>`
-              },
-              {
-                nom: "Mapping",
-                texte: `La classe générée par le CLI implémente l'interface <a href="https://angular.io/api/core/PipeTransform" target="_blank">PipeTransform</a> d'où la présence de la méthode transform()
-Le type de la valeur d'entrée (value) peut être adaptée au type attendu.
-Les paramètres éventuellement passés (...args) peuvent aussi être typées différemment (par une variable unique ou plusieures par exemple)
-
-Dans l'exemple suivant, TruncatePipe récupère une chaine de caractères en entrée et remplace par '...' ceux qui suivent le second espace.
-<code>import {Pipe, PipeTransform} from '@angular/core';
-
-@Pipe({name: 'truncate'})
-export class TruncatePipe implements PipeTransform {
-  transform(value: string) {
-    return value.split(' ').slice(0, 2).join(' ') + '...';
-  }
-}</code>
-Exemple :
-<code> {{ 'It was the best of times' | truncate }} //Sortie: It was...</code>
-
-Cette fois il va accepter 2 arguments : le nombre d'espace à partir duquel la chaine sera tronquée, et le symbole qui représentera la troncature.
-<code>import {Pipe, PipeTransform} from '@angular/core';
-
-@Pipe({name: 'truncate'})
-export class TruncatePipe implements PipeTransform {
-  transform(value: string, length: number, symbol: string) {
-    return value.split(' ').slice(0, length).join(' ') + symbol;
-  }
-}</code>
-Exemple :
-<code> {{ 'It was the best of times' | truncate:4:'(...)' }} //Sortie: It was the best(...)</code>`
-              }
-            ]
-          }
-        ],
-        texte: `Les Pipes sont des filtres utilisables directement depuis la vue afin de transformer les valeurs lors du "binding".`,
-        exemple: PIPE_EXEMPLE,
-        children: [PipeComponent]
       }
     ]
   ]);

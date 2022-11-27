@@ -1,0 +1,7 @@
+a:hover .struct-scheme {
+  background-color: #f56a6a30;
+}
+
+.struct-scheme {
+  transition: background-color 1s;
+}

@@ -1,8 +1,7 @@
-<div class="h-100 w-100 d-flex flex-wrap justify-content-center align-items-center">
+<div class="h-100 w-100 d-flex flex-wrap justify-content-evenly align-items-center">
   <a *ngFor="let info of topics" [routerLink]="info.route">
-    <article>
-      <span class="icon {{info.icon || 'fa-gem'}}" [matTooltip]="info.title"
-            matTooltipClass="example-tooltip-red" style="margin-left: 2em"></span>
+    <article class="struct-scheme">
+      <span class="icon {{info.icon || 'fa-gem'}}" style="margin-left: 2em"></span>
       <h3 style="font-weight: bold; text-align: center">{{info.title}}</h3>
     </article>
   </a>
