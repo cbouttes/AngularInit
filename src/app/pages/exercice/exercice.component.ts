@@ -80,6 +80,12 @@ export class ExerciceComponent implements OnDestroy, AfterViewInit {
       this: any
     ): any {
       this.InputValue = InputValue;
+      this.toJsonString = () =>  this.afterSubmit = JSON.stringify(this.InputValue);
+      this.resetForm = () => {
+        this.toJsonString();
+        alert("Attention : Valeurs nulles !")
+      }
+      this.afterSubmit = this.toJsonString();
     };
     const tmpCmp: any = Component({template, styles, host: {'class': 'row'}})(
       new (TemplateConstructorFunction as any)().constructor

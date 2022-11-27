@@ -30,6 +30,17 @@ import {ExerciceComponent} from "./pages/exercice/exercice.component";
 import {StylePipe} from './pipes/style.pipe';
 import { TextCodeComponent } from './components/text-code/text-code.component';
 import { InstallComponent } from './pages/exercice/topics/install/install.component';
+import { HighlightsDirective } from './directives/highlights.directive';
+import { FormComponent } from './components/form/form.component';
+import { BindingComponent } from './pages/exercice/topics/binding/binding.component';
+import {MatSliderModule} from "@angular/material/slider";
+import {MatProgressBarModule} from "@angular/material/progress-bar";
+import { BindingChildComponent } from './pages/exercice/topics/binding/binding-child/binding-child.component';
+import { ShematicsComponent } from './pages/exercice/topics/shematics/shematics.component';
+import { StructureComponent } from './pages/exercice/topics/structure/structure.component';
+import { DirectiveComponent } from './pages/exercice/topics/directive/directive.component';
+import { FormsComponent } from './pages/exercice/topics/forms/forms.component';
+import { RoutingComponent } from './pages/exercice/topics/routing/routing.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +59,16 @@ import { InstallComponent } from './pages/exercice/topics/install/install.compon
     ChapitreMenuComponent,
     StylePipe,
     TextCodeComponent,
-    InstallComponent
+    InstallComponent,
+    HighlightsDirective,
+    FormComponent,
+    BindingComponent,
+    BindingChildComponent,
+    ShematicsComponent,
+    StructureComponent,
+    DirectiveComponent,
+    FormsComponent,
+    RoutingComponent
   ],
   imports: [
     BrowserModule,
@@ -65,7 +85,8 @@ import { InstallComponent } from './pages/exercice/topics/install/install.compon
     ReactiveFormsModule,
     MatDatepickerModule,
     NgxMatNativeDateModule,
-    NgxMatDatetimePickerModule
+    NgxMatDatetimePickerModule,
+    MatProgressBarModule
   ],
   providers: [
     DatePipe,

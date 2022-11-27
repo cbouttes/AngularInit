@@ -3,8 +3,15 @@ import {Routes} from "@angular/router";
 import {PipeComponent} from "../pages/exercice/topics/pipe/pipe.component";
 import {Chapitre} from "../models/cours";
 import {TemplateRef} from "@angular/core";
-import {Exemple, INSTALL_EXEMPLE, PIPE_EXEMPLE, ROUTING_EXEMPLE} from "./exemples";
+import {DIRECTIVE_EXEMPLE, Exemple, FORMS_EXEMPLE, INSTALL_EXEMPLE, PIPE_EXEMPLE, ROUTING_EXEMPLE} from "./exemples";
 import {InstallComponent} from "../pages/exercice/topics/install/install.component";
+import {BindingComponent} from "../pages/exercice/topics/binding/binding.component";
+import {ShematicsComponent} from "../pages/exercice/topics/shematics/shematics.component";
+import {StructureComponent} from "../pages/exercice/topics/structure/structure.component";
+import {DirectiveComponent} from "../pages/exercice/topics/directive/directive.component";
+import {FormsComponent} from "../pages/exercice/topics/forms/forms.component";
+import {routes_exercice} from "../app-routing.module";
+import {RoutingComponent} from "../pages/exercice/topics/routing/routing.component";
 
 export interface Info {
   route: string,
@@ -71,7 +78,12 @@ Pour plus de précisions et de possibilités: <a href="https://docs.npmjs.com/cl
         texte: `<p>Une application web utilisant le Framework Angular est dite "Single Page" : La navigation va être simulée au sein de la page 'racine' (index.html).</p>
 
 <div class="d-flex text-exemple">
-    <div class="col-6"></div>
+    <div class="col-6 d-flex flex-column justify-content-center">
+        <p>Par défaut, la génération d'un projet produit l'architecture ci-contre.</p>
+        <p>A la racine du projet se trouvent les fichiers de configuration du CLI, des dépendances et de TypeScript.</p>
+        <p>Les points d'entrée de l'application et les éléments statiques sont réunis sous src</p>
+        <p>A l'intérieur du dossier app, la logique de l'application voit le jour.</p>
+    </div>
     <div class="col-6 d-flex" style="justify-content: center">
         <div class="d-flex flex-wrap struct-scheme">
             <div class="col-12 folder">Project</div>
@@ -236,7 +248,7 @@ Pour toutes informations supplémentaires, consultez la <a href="https://www.typ
             ]
           }
         ],
-        children: []
+        children: [StructureComponent]
       }
     ],
     [
@@ -385,7 +397,7 @@ Toutefois, il ne s'agit en fait que de simple fichier TypeScript exportant une c
 La différence essentielle entre les deux définition réside dans la nécessité d'instancier les valeurs (que ce soit par champ ou constructeur).`
           }
         ],
-        children: []
+        children: [ShematicsComponent]
       }
     ],
     [
@@ -473,7 +485,7 @@ Ce comportement n'est pas sans rapeller celui du [(ngModel)] puisqu'il fonctionn
         ],
         texte: `Le data binding est la méthode par laquelle une donnée est associée à un élément du template.`,
         exemple: PIPE_EXEMPLE,
-        children: [PipeComponent]
+        children: [BindingComponent]
       }
     ],
     [
@@ -516,7 +528,7 @@ Exemple:
             chapitres: [
               {
                 nom: "Génération",
-                texte: `La commande suivante (ou sa forme simplifiée), exécutée à la racine du projet (ou dans un sous-répertoire de 'src') suffit pour générer un composant grace au CLI Angular:
+                texte: `La commande suivante (ou sa forme simplifiée), exécutée à la racine du projet (ou dans un sous-répertoire de 'src') suffit pour générer un pipe grace au CLI Angular:
                   <code> ng generate pipe {nomDuPipe} ( simplifiée : ng g p {nomDuPipe} ) </code>
 Ce qui génere un résultat tel que celui-ci:
 <code>import { Pipe, PipeTransform } from '@angular/core';
@@ -597,13 +609,13 @@ La directive peur aussi être utilisée avec une variable contenant toutes les a
                     nom: "[NgStyle]",
                     texte: `De la même façon que la directive NgClasse gère les classes, NgStyle permet la gestion de plusieurs attributs de styles à la fois. Afin de les modifier à l'aide d'une fonction et les appliquer à un élément il est possible de procéder comme tel :
 Dans le script ts :
-<code>currentStyles: Record<string, string> = {}; // Variable prête à recevoir les informations
+<code>currentStyles: Record<string, string> = \{\}; // Variable prête à recevoir les informations
 setCurrentStyles() { // Associe une valeur d'attribut de style selon l'état de variables
-  this.currentStyles = {
+  this.currentStyles = \{
     'font-style':  this.canSave      ? 'italic' : 'normal',
     'font-weight': !this.isUnchanged ? 'bold'   : 'normal',
     'font-size':   this.isSpecial    ? '24px'   : '12px'
-  };
+  \};
 }</code>
 Dans le template html :
 <code><div [ngStyle]="currentStyles">
@@ -658,84 +670,119 @@ Exemple :
 <app-item-detail *ngFor="let item of items" [item]="item"></app-item-detail></code>`,
                   },
                   {
-                    nom: "*ngSwitch",
-                    texte: `Angular fournit des directives pour gérer les formulaires, les listes, les styles et l'affichage. Les composant sont un exemple de directive.`,
+                    nom: "<ng-container>",
+                    texte: `Il n'est pas possible de cumuler 2 directives structurelles sur un même élément. Il est donc nécessaire d'imbriquer des éléments avec une seule directive.
+Cependant il n'est pas obligatoire de multiplier les élément du DOM afin de réaliser cette manoeuvre, Angular met à disposition balise ayant un comportement similaire, et donc capable de recevoir une directive, mais n'étant pas rendu à l'affichage : le ng-container
+Une utilisation simple se fait ainsi :
+<code><p>
+  J'ai tourné au coin de la rue
+  <ng-container *ngIf="hero"> // Balise non rendue
+    , j'ai vu {{hero.name}}. Je l'ai salué // Texte affiché conditionnellement
+  </ng-container>
+  et ai continué ma route.
+</p></code>
+Et une imbrication :
+<code><ng-container *ngFor="let item of items"> // Balise non rendue itérée
+// Composant affiché si l'itération actuelle réponds a la condition
+<app-item-active-detail *ngIf="item.active"  [item]="item"></app-item-active-detail>
+</ng-container></code>`,
                   }
                 ]
-              }
-            ]
-          },
-          {
-            nom: "Pipes Natifs", texte: `Angular fournit des pipes intégrés pour les transformations de données courantes, qui utilisent les informations locales pour formater les données.
-
- Les pipes suivants sont couramment utilisés :
-<ul>
-<li><a href="https://angular.io/api/common/DatePipe">DatePipe</a>: Formate une date donnée conformément à la Locale.</li>
-<li><a href="https://angular.io/api/common/UpperCasePipe">UpperCasePipe</a>: Transforme un texte en lettres majuscules.</li>
-<li><a href="https://angular.io/api/common/LowerCasePipe">LowerCasePipe</a>: Transforme un texte en lettres minuscules.</li>
-<li><a href="https://angular.io/api/common/CurrencyPipe">CurrencyPipe</a>: Transforme un nombre en un string avec le symbole de la monnaie locale.</li>
-<li><a href="https://angular.io/api/common/DecimalPipe">DecimalPipe</a>: Transforme un nombre en un string string de sa valeur décimale. (Peut être utilisé pour fixer le nombre de caractères attendus en sortie.)</li>
-<li><a href="https://angular.io/api/common/PercentPipe">PercentPipe</a>: Transforme un nombre en un string de sa valeur en pourcentage.</li>
-</ul>`
-          },
-          {
-            nom: "Pipes Customisés",
-            texte: "Il est possible de créer ses propres pipes afin de personnaliser (voire simplifier) l'affichage d'une donnée.",
-            chapitres: [
-              {
-                nom: "Génération",
-                texte: `La commande suivante (ou sa forme simplifiée), exécutée à la racine du projet (ou dans un sous-répertoire de 'src') suffit pour générer un composant grace au CLI Angular:
-                  <code> ng generate pipe {nomDuPipe} ( simplifiée : ng g p {nomDuPipe} ) </code>
-Ce qui génere un résultat tel que celui-ci:
-<code>import { Pipe, PipeTransform } from '@angular/core';
-
-@Pipe({
-  name: 'nomDuPipe'
-})
-export class NomDuPipePipe implements PipeTransform {
-
-  transform(value: unknown, ...args: unknown[]): unknown {
-    return null;
-  }
-
-}</code>`
-              },
-              {
-                nom: "Mapping",
-                texte: `La classe générée par le CLI implémente l'interface <a href="https://angular.io/api/core/PipeTransform" target="_blank">PipeTransform</a> d'où la présence de la méthode transform()
-Le type de la valeur d'entrée (value) peut être adaptée au type attendu.
-Les paramètres éventuellement passés (...args) peuvent aussi être typées différemment (par une variable unique ou plusieures par exemple)
-
-Dans l'exemple suivant, TruncatePipe récupère une chaine de caractères en entrée et remplace par '...' ceux qui suivent le second espace.
-<code>import {Pipe, PipeTransform} from '@angular/core';
-
-@Pipe({name: 'truncate'})
-export class TruncatePipe implements PipeTransform {
-  transform(value: string) {
-    return value.split(' ').slice(0, 2).join(' ') + '...';
-  }
-}</code>
-Exemple :
-<code> {{ 'It was the best of times' | truncate }} //Sortie: It was...</code>
-
-Cette fois il va accepter 2 arguments : le nombre d'espace à partir duquel la chaine sera tronquée, et le symbole qui représentera la troncature.
-<code>import {Pipe, PipeTransform} from '@angular/core';
-
-@Pipe({name: 'truncate'})
-export class TruncatePipe implements PipeTransform {
-  transform(value: string, length: number, symbol: string) {
-    return value.split(' ').slice(0, length).join(' ') + symbol;
-  }
-}</code>
-Exemple :
-<code> {{ 'It was the best of times' | truncate:4:'(...)' }} //Sortie: It was the best(...)</code>`
               }
             ]
           }
         ],
         texte: `Les directives sont des classes qui ajoutent un comportement supplémentaire aux éléments de l'application. Angular en fournis certaines pour gérer les formulaires, les listes, les styles et ce que les utilisateurs voient.`,
-        exemple: PIPE_EXEMPLE,
-        children: [PipeComponent]
+        exemple: DIRECTIVE_EXEMPLE,
+        children: [DirectiveComponent]
+      }
+    ],
+    [
+      Topic.FORMS,
+      {
+        route: 'Forms',
+        title: 'Formulaires',
+        icon: 'fas fa-file-signature',
+        chapitres: [
+          {
+            nom: "Modules",
+            texte: `Il existe 2 façons de gérer les formulaires avec Angular, chacune de ces méthodes étant liées à un module:
+
+  <a href="https://angular.io/guide/forms" target="_blank">Formulaire lié au Modèle</a> : FormsModule
+  <a href="https://angular.io/guide/reactive-forms" target="_blank">Formulaire Réactif</a> : ReactiveFormsModule
+
+Ces modules se distinguent essentiellement par la méthode de validation des entrées.`
+          },{
+            nom: "Form",
+            texte: `Ces méthodes partagent toute fois un fonctionnement commun : celui de la balise \<form\>. Elle met a disposition les évènements Submit et Reset afin de redéfinir le comportement du formulaire au déclenchement de ceux-cis.
+Il est également possible de l'identifier avec une variable de template afin d'y faire référence par la suite :
+<code><form (submit)="onSubmit()" (reset)="resetForm()" #personForm>
+  ...
+  <input type="submit" value="Valider" [disabled]="!personForm.checkValidity()">
+  <input type="reset" value="Réinitialiser">
+</form></code>`
+          },
+          {
+            nom: "Formulaire lié au Modèle",
+            texte: `Étant la méthode la plus simple d'utilisation de formulaire, elle implique l'utilisation de la directive ngModel afin de lier chaque élément de formulaire à une variable. Il est possible d'utiliser une variable simple, ou lier tout ou partie des attributs d'un objet complexe :
+<code> <form>
+  <input type="text" name="nom" [(ngModel)]="personne.nom" required>
+  <input type="number" name="age" [(ngModel)]="personne.age" min="18">
+</form></code>
+La validation des entrées et confiée aux éléments de formulaire comprenant la <a href="https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Constraint_validation" target="_blank">validation native HTML</a> et les <a href="https://angular.io/guide/form-validation#custom-validators" target="_blank">validateurs personnalisés</a>.`
+          },
+          {
+            nom: "Formulaire Réactif",
+            texte: `Les formulaires réactifs ont une syntaxe plus lourde mais offrent bien plus de contrôle sur les données grâce à une gestion plus poussée des validateurs. A l'instar du module précédent, celui ci nécessite la préparation du formulaire depuis le script.
+En conséquence, les données du formulaires ne sont plus retournée en temps réel mais récupérés programmatiquement, généralement au moment du Submit et apres validation`,
+            chapitres: [
+              {
+                nom: "FormControl",
+                texte: ` L'objet <a href="https://angular.io/api/forms/FormControl" target="_blank">FormControl</a> suit les changements de la valeur ainsi que sa validité.
+Il se construit avec la valeur par défaut et une liste optionnelle de validateurs :
+<code>export class NameEditorComponent {
+  name = new FormControl('', Validators.required);
+}</code>
+Et est ensuite associée grace a l'attribut [formControl] :
+<code><label for="name">Name: </label>
+<input id="name" type="text" [formControl]="name"></code>
+La vérification de validité se fait donc sur le FormControl plutot que sur l'élément du DOM :
+<code><div *ngIf="name.invalid && (name.dirty || name.touched)"
+    class="alert alert-danger"></code>`
+              },
+              {
+                nom: "FormGroup",
+                texte: ` L'objet <a href="https://angular.io/api/forms/FormGroup" target="_blank">FormGroup</a> est un ensemble de FormControl permettant de plus aisément suivre l'état de l'ensemble.
+Il se déclare ainsi :
+<code>export class ProfileEditorComponent {
+  profileForm = new FormGroup({
+    firstName: new FormControl(''),
+    lastName: new FormControl(''),
+  });
+}</code>
+L'association se fait directement sur la balise <form> et change l'appel des FormControl en utilisant leur nom :
+<code><form [formGroup]="profileForm">
+  <label for="first-name">First Name: </label>
+  <input id="first-name" type="text" formControlName="firstName">
+  <label for="last-name">Last Name: </label>
+  <input id="last-name" type="text" formControlName="lastName">
+</form></code>
+La vérification de validité des éléments se fait toujours de la même façon, mais il est possible de faire une vérification sur l'état général du formulaire :
+<code>// Le formulaire doit être complété pour activer le bouton
+<button type="submit" [disabled]="!profileForm.valid">Valider</button>
+Enfin, il est possible de récupérer un objet à la structure similaire à celle du groupe avec un appel simple :
+<code>onSubmit() {
+    if(this.profileForm.valid) { // Vérification de validité
+        this.profile = this.profileForm.value // Récupération de l'objet convenable
+    }
+  }</code>`
+              }
+            ]
+          }
+        ],
+        texte: `Le data binding est la méthode par laquelle une donnée est associée à un élément du template.`,
+        exemple: FORMS_EXEMPLE,
+        children: [FormsComponent]
       }
     ],
     [
@@ -866,7 +913,7 @@ export class LibraryComponent {
           }
         ],
         exemple: ROUTING_EXEMPLE,
-        children: []
+        children: [RoutingComponent]
       }
     ]
   ]);
@@ -877,7 +924,7 @@ export class LibraryComponent {
 
   static getChildren(topic: Topic): Routes {
     return this.topicsInfos.get(topic)?.children.map(child => {
-      return {path: '', component: child}
+      return {path: '', component: child, children: topic === Topic.ROUTING ? routes_exercice : undefined}
     }) || [];
   }
 

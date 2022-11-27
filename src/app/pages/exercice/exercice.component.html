@@ -7,14 +7,14 @@
       <div class="info-texte" [innerHTML]="info.texte | safe:'html'"></div>
       <ng-container *ngIf="info.exemple">
         Exemple:
-        <div class="row">
+        <div class="row flex-max">
           <div class="col-6 col-12-small row">
             <template *ngIf="!info.exemple.desc" #vc></template>
             <div  *ngIf="info.exemple.desc" class="col-12">
               <app-text-code [text]="info.exemple.desc"></app-text-code>
             </div>
           </div>
-          <pre class="col-6 col-12-small"><code [highlight]=" info.exemple.content | style"></code></pre>
+          <pre class="col-6 col-12-small h100 overflow-auto"><code [highlight]=" info.exemple.content | style"></code></pre>
         </div>
       </ng-container>
 

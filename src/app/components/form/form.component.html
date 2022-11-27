@@ -1,0 +1,14 @@
+<form #personForm>
+  <input type="text" name="nom" [(ngModel)]="InputValue.nom">
+  <input type="text" name="prenom" [(ngModel)]="InputValue.prenom">
+  <select name="genre" [(ngModel)]="InputValue.genre">
+    <option [ngValue]="undefined">Non Renseigné</option>
+    <option value="Homme">Homme</option>
+    <option [value]="'Femme'">Femme</option>
+    <option [value]="otherValue">Autre</option>
+  </select>
+  <input type="number" name="age" [(ngModel)]="InputValue.age">
+  <input type="submit" value="Valider" [disabled]="!personForm.checkValidity()">
+  <input type="reset" value="Réinitialiser">
+</form>
+<pre><code [highlight]=" InputValue.toString() | style"></code></pre>

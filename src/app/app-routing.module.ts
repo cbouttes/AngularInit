@@ -9,6 +9,10 @@ const routes: Routes = [
   {path: '', component: HomeComponent}
 ];
 
+// Tableau à utiliser pour l'exercice sur les routes
+export const routes_exercice : Routes = []
+
+
 function getTopics(): Routes {
   return Object.values(Topic).filter((v) => !isNaN(Number(v)) && Infos.has(Number(v)))
     .map((_value, index) => {

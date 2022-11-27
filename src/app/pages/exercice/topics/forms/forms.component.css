@@ -1,0 +1,9 @@
+a:hover .struct-scheme {
+  background-color: #f56a6a30;
+}
+
+.struct-scheme {
+  transition: background-color 1s;
+  margin: 1em 3em !important;
+  width: auto;
+}

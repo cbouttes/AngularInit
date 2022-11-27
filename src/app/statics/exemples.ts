@@ -49,3 +49,47 @@ export const ROUTING_EXEMPLE: Exemple = {
     <div class="col-6"><code><button routerLink="/exemple/routing">Lien vers l'exemple routing</button></code></div>
 </div>`
 }
+
+export const FORMS_EXEMPLE: Exemple = {
+  content: `<form (submit)="toJsonString()" (reset)="resetForm()" #personForm>
+<label class="col-12">
+  Nom :
+  <input type="text" name="nom" [(ngModel)]="InputValue.nom" required>
+</label>
+<label class="col-12">
+  Prenom :
+  <input type="text" name="prenom" [(ngModel)]="InputValue.prenom">
+</label>
+<label class="col-12">
+  Genre :
+  <select name="genre" [(ngModel)]="InputValue.genre">
+    <option [ngValue]="undefined">Non Renseigné</option>
+    <option value="Homme">Homme</option>
+    <option [value]="'Femme'">Femme</option>
+    <option [value]="otherValue">Autre</option>
+  </select>
+</label>
+<label class="col-12">
+  Age :
+  <input type="number" name="age" [(ngModel)]="InputValue.age" min="18">
+</label>
+  <input type="submit" value="Valider" [disabled]="!personForm.checkValidity()">
+  <input type="reset" value="Réinitialiser">
+</form>
+<label class="col-12">
+  Résultat :
+  <code>{{afterSubmit}}</code>
+</label>`,
+  default: {nom: "", prenom: "",genre: undefined , age: 0}
+}
+
+export const DIRECTIVE_EXEMPLE: Exemple = {
+  content: `<p>Les nombres suivants, issus d'un tableau sont utilisés via différentes directives</p>
+<div class="d-flex">
+    <ng-container *ngFor="let number of [1,24,35,12,85,65,44,58,137,43,67,19]; let first=first">
+        <p class="col-1 text-center" [class.pair]="number % 2 === 0" [ngStyle]="{'border': '1px solid #f56a6a'}">
+           <ng-container *ngIf="!first">, </ng-container>{{number}}
+        </p>
+    </ng-container>
+</div>`
+}

@@ -1,0 +1,32 @@
+<div class="row h100">
+  <div class="col-12 row">
+    <div class="col-6 row" style="justify-content: center; flex-direction: column">
+      <p>Utilisez des directives afin d'afficher dans l'emplacement ci contre les noms entrés dans la couleur choisie, en soulignant le nom des mineurs</p>
+      <div class="row">
+        <div class="col-12 d-flex flex-wrap justify-content-evenly">
+          <label class="col-12">
+            Nom :
+            <input type="text" name="nom" [(ngModel)]="nom">
+          </label>
+          <label class="col-6">
+            Age :
+            <input type="number" name="age" [(ngModel)]="age" min="1">
+          </label>
+          <label class="col-6">
+            Couleur :
+            <input type="text" name="pref" [(ngModel)]="pref">
+          </label>
+          <button class="col-12 primary" (click)="addNew()">Ajouter</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 d-flex flex-wrap justify-content-evenly align-items-center struct-scheme">
+      <div class="p-2 text-center mineur" [ngStyle]="{'color': '#f56a6a', 'border': '1px solid lightgray'}">
+        Mineur
+      </div>
+      <div class="p-2 text-center" [ngStyle]="{'color': '#1976d2', 'border': '1px solid lightgray'}">
+        Majeur
+      </div>
+    </div>
+  </div>
+</div>
