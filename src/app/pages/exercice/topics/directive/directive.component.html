@@ -14,7 +14,7 @@
           </label>
           <label class="col-6">
             Couleur :
-            <input type="text" name="pref" [(ngModel)]="pref">
+            <ngx-colors ngx-colors-trigger name="pref" [(ngModel)]="pref"></ngx-colors>
           </label>
           <button class="col-12 primary" (click)="addNew()">Ajouter</button>
         </div>

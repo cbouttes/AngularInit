@@ -180,3 +180,8 @@ header.major > :last-child {
 .pair {
   color: #1976d2;
 }
+
+.app-color-picker {
+  display: flex;
+  justify-content: center;
+}

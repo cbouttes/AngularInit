@@ -37,6 +37,7 @@ import { DirectiveComponent } from './pages/exercice/topics/directive/directive.
 import { FormsComponent } from './pages/exercice/topics/forms/forms.component';
 import { RoutingComponent } from './pages/exercice/topics/routing/routing.component';
 import { NotesComponent } from './components/modal/notes/notes.component';
+import {NgxColorsModule} from "ngx-colors";
 
 @NgModule({
   declarations: [
@@ -79,7 +80,8 @@ import { NotesComponent } from './components/modal/notes/notes.component';
     MatDatepickerModule,
     NgxMatNativeDateModule,
     NgxMatDatetimePickerModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    NgxColorsModule
   ],
   providers: [
     DatePipe,
