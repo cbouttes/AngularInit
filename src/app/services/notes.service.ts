@@ -10,7 +10,7 @@ export class NotesService {
 
   constructor() {
     const localNotes = localStorage.getItem('NOTES');
-    this.notes = localNotes ? localStorage. JSON.parse(localNotes) : new Map<Topic,string>();
+    this.notes = localNotes ? JSON.parse(localNotes) : new Map<Topic,string>();
   }
 
   saveNote(topic: Topic, notes: string) {
