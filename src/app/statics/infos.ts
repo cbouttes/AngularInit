@@ -936,4 +936,7 @@ export class LibraryComponent {
     return this.topicsInfos.has(topic);
   }
 
+  static getTitle(topic: Topic) {
+    return this.getInfo(topic)?.title || 'Unknown Topic'
+  }
 }

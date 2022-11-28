@@ -1,5 +1,5 @@
 <div *ngIf="topic !== undefined && info; else error" class="features h100">
-  <article>
+  <article class="cdkdb">
       <span (click)="openDialog()" class="icon {{info.icon || 'fa-gem'}}" matTooltip="Cours"
             matTooltipClass="example-tooltip-red"></span>
     <div class="content h100 d-flex flex-column">
@@ -17,7 +17,9 @@
           <pre class="col-6 col-12-small h100 overflow-auto"><code [highlight]=" info.exemple.content | style"></code></pre>
         </div>
       </ng-container>
-
+    </div>
+    <div class="note-box" cdkDragBoundary=".cdkdb" cdkDrag>
+      <button (click)="openDialog(true)" matTooltip="Notes"><i class="fa-solid fa-pen-to-square"></i></button>
     </div>
   </article>
   <div class="exercice">

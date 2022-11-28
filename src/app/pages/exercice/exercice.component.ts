@@ -22,6 +22,7 @@ import {FormsModule} from "@angular/forms";
 import {AppModule} from "../../app.module";
 import {AppRoutingModule} from "../../app-routing.module";
 import {StylePipe} from "../../pipes/style.pipe";
+import {NotesComponent} from "../../components/modal/notes/notes.component";
 
 @Component({
   selector: 'app-exercice',
@@ -48,15 +49,22 @@ export class ExerciceComponent implements OnDestroy, AfterViewInit {
     }
   }
 
-  openDialog() {
+  openDialog(note?: boolean) {
     if (this.info)
-      this.dialog.open<CoursComponent, Cours>(CoursComponent, {
-        data: {
-          nom: this.info.title,
-          chapitres: this.info.chapitres
-        },
-        autoFocus: false
-      });
+      if(!note) {
+        this.dialog.open<CoursComponent, Cours>(CoursComponent, {
+          data: {
+            nom: this.info.title,
+            chapitres: this.info.chapitres
+          },
+          autoFocus: false
+        });
+      } else {
+        this.dialog.open<NotesComponent, Topic>(NotesComponent, {
+          data: this.topic,
+          autoFocus: false
+        });
+      }
   }
 
 

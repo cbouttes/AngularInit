@@ -3,12 +3,9 @@ import {BrowserModule} from '@angular/platform-browser';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {MiaComponent} from "./components/mia/mia.component";
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {DragDropModule} from '@angular/cdk/drag-drop';
-import {InfoComponent} from './components/modal/info/info.component';
 import {MatDialogModule} from "@angular/material/dialog";
-import {CyberTextComponent} from './components/cyber-text/cyber-text.component';
 import {HomeComponent} from './pages/home/home.component';
 import {PipeComponent} from './pages/exercice/topics/pipe/pipe.component';
 import {HeaderComponent} from './components/header/header.component';
@@ -31,9 +28,7 @@ import {StylePipe} from './pipes/style.pipe';
 import { TextCodeComponent } from './components/text-code/text-code.component';
 import { InstallComponent } from './pages/exercice/topics/install/install.component';
 import { HighlightsDirective } from './directives/highlights.directive';
-import { FormComponent } from './components/form/form.component';
 import { BindingComponent } from './pages/exercice/topics/binding/binding.component';
-import {MatSliderModule} from "@angular/material/slider";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import { BindingChildComponent } from './pages/exercice/topics/binding/binding-child/binding-child.component';
 import { ShematicsComponent } from './pages/exercice/topics/shematics/shematics.component';
@@ -41,13 +36,11 @@ import { StructureComponent } from './pages/exercice/topics/structure/structure.
 import { DirectiveComponent } from './pages/exercice/topics/directive/directive.component';
 import { FormsComponent } from './pages/exercice/topics/forms/forms.component';
 import { RoutingComponent } from './pages/exercice/topics/routing/routing.component';
+import { NotesComponent } from './components/modal/notes/notes.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MiaComponent,
-    InfoComponent,
-    CyberTextComponent,
     ExerciceComponent,
     HomeComponent,
     PipeComponent,
@@ -61,14 +54,14 @@ import { RoutingComponent } from './pages/exercice/topics/routing/routing.compon
     TextCodeComponent,
     InstallComponent,
     HighlightsDirective,
-    FormComponent,
     BindingComponent,
     BindingChildComponent,
     ShematicsComponent,
     StructureComponent,
     DirectiveComponent,
     FormsComponent,
-    RoutingComponent
+    RoutingComponent,
+    NotesComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,12 @@
+.note-modal {
+  height: 90vh;
+  width: 80vw;
+  display: flex;
+  flex-direction: column;
+  padding: 2em
+}
+
+.note-zone {
+  margin: 2em 0;
+  flex: 1;
+}

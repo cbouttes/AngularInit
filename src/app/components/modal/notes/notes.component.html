@@ -1,0 +1,9 @@
+<div class="note-modal">
+  <h3 style="font-weight: bold">Notes : {{title}}</h3>
+  <div class="note-zone">
+    <textarea class="h-100" name="zone" (keyup)="autoSave()" [(ngModel)]="notes"></textarea>
+  </div>
+  <div class="d-flex justify-content-end">
+    <button class="primary" (click)="saveNotes()">Enregistrer</button>
+  </div>
+</div>

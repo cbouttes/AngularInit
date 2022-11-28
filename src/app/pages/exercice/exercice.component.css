@@ -34,3 +34,14 @@ pre {
   display: flex;
   flex-direction: column;
 }
+
+.note-box {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: white;
+}
+
+i::before {
+  font-size: 1.5em;
+}
