@@ -4,13 +4,13 @@
       <p>Liez la couleur choisie ci-dessous à la couleur du texte ci contre</p>
       <div class="col-12">
         <label>Couleur :
-          <ngx-colors ngx-colors-trigger></ngx-colors>
+          <ngx-colors ngx-colors-trigger [(ngModel)]="textColor"></ngx-colors>
         </label>
       </div>
     </div>
     <div class="col-6 d-flex flex-column justify-content-center">
       <div class="p-2 text-center struct-scheme">
-        <p class="m-0"> En fonctionnant avec l'interpolation, je me transforme en caméléon</p>
+        <p class="m-0" [style]="'color: ' + textColor"> En fonctionnant avec l'interpolation, je me transforme en caméléon</p>
       </div>
     </div>
   </div>
@@ -19,9 +19,9 @@
       <div class="col-12 row">
         <p>Utilisez les boutons ci-dessous afin d'additionner ou soustraire la valeur indiquée à la jauge en face</p>
         <div class="col-12 d-flex align-items-center justify-content-evenly">
-          <button>Augmenter</button>
+          <button (click)="updateProgress(random)">Augmenter</button>
           <p class="m-0">Valeur: {{random}}</p>
-          <button>Réduire</button>
+          <button  (click)="updateProgress(-random)">Réduire</button>
         </div>
       </div>
     </div>

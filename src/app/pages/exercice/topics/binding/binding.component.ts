@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BindingComponent implements OnInit {
 
+  textColor = '';
+
   random: number = 0;
   progress: number;
 
@@ -28,10 +30,12 @@ export class BindingComponent implements OnInit {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
-  private updateProgress(value: number) {
+  updateProgress(value: number) {
     this.progress += value;
     this.getRandomInc()
   }
+
+
 
   getRandomInc() {
     this.random = BindingComponent.randomInteger(1,25)
