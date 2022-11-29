@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Border} from "./binding-child/binding-child.component";
 
 @Component({
   selector: 'app-binding',
@@ -12,15 +13,15 @@ export class BindingComponent implements OnInit {
   random: number = 0;
   progress: number;
 
-  size:number = 5;
-  radius: number = 15;
+  parentSize:number = 5;
+  parentRadius: number = 15;
 
   currentStyles: Record<string, string> = {};
 
   constructor() {
     this.getRandomInc();
     this.progress = BindingComponent.randomInteger(25,75)
-    this.setCurrentStyles(this.size,this.radius);
+    this.setCurrentStyles(this.parentSize,this.parentRadius);
   }
 
   ngOnInit(): void {
@@ -47,4 +48,18 @@ export class BindingComponent implements OnInit {
       'border-width': size + 'px'
     };
   }
+
+  afficherSizeChange(size: number) {
+    alert('New Size : ' + size)
+  }
+
+  afficherRadiusChange(radius: number) {
+    alert('New Radius : ' + radius)
+  }
+
+  afficherBorderValues(toto: Border) { // toto <=> $event
+    alert(`New size : ${toto.size}, New radius: ${toto.radius}`)
+    this.setCurrentStyles(toto.size,toto.radius)
+  }
+
 }

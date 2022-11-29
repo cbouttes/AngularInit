@@ -2,12 +2,12 @@
   <div class="col-12 d-flex flex-wrap justify-content-evenly">
     <label class="col-6">
       Border-Size :
-      <input type="number" name="size" min="1" max="5" [value]="2">
+      <input type="number" name="size" min="1" max="5" [(ngModel)]="childSize">
     </label>
     <label class="col-6">
       Border-Radius :
-      <input type="number" name="radius" min="0" max="100" [value]="50">
+      <input type="number" name="radius" min="0" max="100" [(ngModel)]="childRadius">
     </label>
-    <button class="col-12 primary">Mettre à jour le style</button>
+    <button class="col-12 primary" (click)="emitBorderValues()">Mettre à jour le style</button>
   </div>
 </div>

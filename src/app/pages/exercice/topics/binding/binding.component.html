@@ -44,7 +44,9 @@
       </div>
     </div>
     <div class="col-6 row" style="justify-content: space-evenly; flex-direction: column">
-      <app-binding-child></app-binding-child>
+      <app-binding-child [childRadius]="parentRadius" [childSize]="parentSize"
+                        (borderEmitter)="afficherBorderValues($event)" ></app-binding-child>
+      <!-- Le nom de la variable retournée par un evenement EventEmitter.emit(border) est $event [précision : $event = border] -->
     </div>
   </div>
 </div>
