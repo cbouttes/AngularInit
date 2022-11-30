@@ -45,7 +45,7 @@
     <div class="col-6 row" style="justify-content: space-evenly; flex-direction: column">
       <label class="col-12">
         ex: Je suis GRENOIR Edward :
-        <input [(ngModel)]="personne" disabled name="person" type="text">
+        <input [value]="personne | presentation" disabled name="person" type="text">
       </label>
     </div>
   </div>
