@@ -1,3 +1,7 @@
 .mineur {
   text-decoration: underline;
 }
+
+.majeur {
+  font-weight: bold;
+}

@@ -27,6 +27,17 @@
       <div class="p-2 text-center" [ngStyle]="{'color': '#1976d2', 'border': '1px solid lightgray'}">
         Majeur
       </div>
+      <ng-container  *ngFor="let userColor of userColors">
+        <!--<div [ngClass]="{ 'p-2 text-center' : true, 'mineur' : userColor.age < 18}" [ngStyle]="{'color': userColor.color, 'border': '1px solid lightgray'}">
+          {{userColor.nom}}
+        </div>-->
+        <!--<div class="p-2 text-center" [class.mineur]="userColor.age < 18" [ngStyle]="{'color': userColor.color, 'border': '1px solid lightgray'}">
+          {{userColor.nom}}
+        </div>-->
+        <div class="p-2 text-center" [ngClass]="userColor.age >= 18 ? 'majeur' : 'mineur'" [ngStyle]="{'color': userColor.color, 'border': '1px solid lightgray'}">
+          {{userColor.nom}}
+        </div>
+      </ng-container>
     </div>
   </div>
 </div>
