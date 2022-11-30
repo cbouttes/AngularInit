@@ -28,17 +28,19 @@
         Majeur
       </div>
     </div>
-    <div class="col-6 d-flex flex-wrap justify-content-evenly align-items-center struct-scheme">
-      <ng-container *ngFor="let userColor of userColors">
-        <ng-container *ngIf="userColor.age < 18">
-          <div class="p-2 text-center mineur" [ngStyle]="{'color': '#f56a6a', 'border': '1px solid lightgray'}">
-            {{userColor.nom}}
-          </div>
+    <div class="p-2 text-center mineur" [ngStyle]="{'color': '#f56a6a', 'border': '1px solid lightgray'}">
+      <h3>Mineur</h3>
+      <ng-container *ngFor="let user of userColors">
+        <ng-container *ngIf="user.age < 18">
+          <p>{{user.nom}}</p>
         </ng-container>
-        <ng-container *ngIf="userColor.age >= 18">
-        <div class="p-2 text-center" [ngStyle]="{'color': '#1976d2', 'border': '1px solid lightgray'}">
-          {{userColor.nom}}
-        </div>
+      </ng-container>
+    </div>
+    <div class="p-2 text-center" [ngStyle]="{'color': '#1976d2', 'border': '1px solid lightgray'}">
+      <h3>Majeur</h3>
+      <ng-container *ngFor="let user of userColors">
+        <ng-container *ngIf="user.age > 17">
+          <p>{{user.nom}}</p>
         </ng-container>
       </ng-container>
     </div>
