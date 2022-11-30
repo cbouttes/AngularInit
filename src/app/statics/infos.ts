@@ -437,7 +437,7 @@ Ainsi à l'utilisation il suffit de procéder comme suit :
             chapitres: [
               {
                 nom: "(Event)",
-                texte: `L'élément ou composant s'attendant à recevoir une donnée préfixe la variable de sortie du décorateur @Output() :
+                texte: `L'élément ou composant s'attendant à renvoyer une donnée préfixe la variable de sortie du décorateur @Output() :
 <code>import { Component, Output } from '@angular/core'; // Import Output
 export class ItemOutputComponent {
   @Output() newItemEvent = new EventEmitter<string>();
