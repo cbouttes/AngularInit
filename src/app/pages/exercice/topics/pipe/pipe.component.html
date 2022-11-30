@@ -15,7 +15,9 @@
     <div class="col-6 row">
       <label class="col-12">
         ex: June 15, 2015 :
-        <input [(ngModel)]="date" disabled name="date" type="text">
+        <!--<input [(ngModel)]="date" disabled name="date" type="text">-->
+        <!--<input [(ngModel)]="date | date:'h:mm a z'" disabled name="date" type="text">-->
+        <input [value]="date | date:'h:mm a z'" disabled name="date" type="text">
       </label>
       <label class="col-12">
         ex: 9:03 AM :
@@ -45,7 +47,8 @@
     <div class="col-6 row" style="justify-content: space-evenly; flex-direction: column">
       <label class="col-12">
         ex: Je suis GRENOIR Edward :
-        <input [(ngModel)]="personne" disabled name="person" type="text">
+        <!--<input [(ngModel)]="personne" disabled name="person" type="text">-->
+        <input [value]="personne | nomPrenomPipe" disabled name="person" type="text">
       </label>
     </div>
   </div>

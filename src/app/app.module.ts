@@ -38,6 +38,7 @@ import { FormsComponent } from './pages/exercice/topics/forms/forms.component';
 import { RoutingComponent } from './pages/exercice/topics/routing/routing.component';
 import { NotesComponent } from './components/modal/notes/notes.component';
 import {NgxColorsModule} from "ngx-colors";
+import { NomPrenomPipePipe } from './pipes/nom-prenom-pipe.pipe';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import {NgxColorsModule} from "ngx-colors";
     DirectiveComponent,
     FormsComponent,
     RoutingComponent,
-    NotesComponent
+    NotesComponent,
+    NomPrenomPipePipe
   ],
   imports: [
     BrowserModule,
