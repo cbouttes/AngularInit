@@ -44,9 +44,17 @@
       </div>
     </div>
     <div class="col-6 row" style="justify-content: space-evenly; flex-direction: column">
-      <app-binding-child [childRadius]="parentRadius" [childSize]="parentSize"
-                        (borderEmitter)="afficherBorderValues($event)" ></app-binding-child>
+
+      <!--Récupération des valeurs initiales a partir du Record :-->
+      <!--Solution 1 : Utiliser des inputs-->
+      <app-binding-child [(childCurrentStyles)]="currentStyles" [childSize]="parentSize" [childRadius]="parentRadius"></app-binding-child>
+
+      <!--<app-binding-child [childCurrentStyles]="currentStyles" (childCurrentStylesChange)="log($event)"></app-binding-child>-->
       <!-- Le nom de la variable retournée par un evenement EventEmitter.emit(border) est $event [précision : $event = border] -->
+      <!-- Explications : -->
+      <!-- [childCurrentStyles]="currentStyles" la variable childCurrentStyle reçoit la valeur du parent : currentStyle -->
+      <!-- (childCurrentStylesChange)="log($event)" Lorsque l'output childCurrentStylesChange fait un emit($event) je lui demande d'appeler la fonction log($event)-->
+      <!-- La syntaxe simplifiée [(childCurrentStyles)]="currentStyles" combine les deux fonctionnements où la fonction appelée par l'output met à jour la valeur du parent -->
     </div>
   </div>
-</div>
+    </div>

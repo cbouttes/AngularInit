@@ -22,9 +22,20 @@ export class BindingChildComponent implements OnInit {
   @Output()
   borderEmitter: EventEmitter<Border> = new EventEmitter<Border>();
 
+  @Input()
+  childCurrentStyles: Record<string, string> = {};
+
+  @Output()
+  childCurrentStylesChange: EventEmitter<Record<string, string>> =  new EventEmitter<Record<string, string>>();
+
   constructor() { }
 
   ngOnInit(): void {
+    // Solution 2 : Utiliser une fonction pour récupérer les valeurs
+    //this.childCurrentStyles['border-radius'] => Je récupere la valeur associée a la clé 'border-radius'
+    // Avec .replace('px','') je retire de la chaine de caracteres le 'px' afin d'obtenir le nombre au format string
+    // Avec '+' devant un chaine de caractères contenant un nombre, j'obtiens la valeur de type number correspondante
+    //this.childSize = +this.childCurrentStyles['border-radius'].replace('px','')
   }
 
   afficherValue()
@@ -45,6 +56,15 @@ export class BindingChildComponent implements OnInit {
     }
     this.borderEmitter.emit(border)
   }
+
+  setCurrentStyles(size: number, radius: number) {
+    this.childCurrentStyles = {
+      'border-radius': radius + 'px',
+      'border-width': size + 'px'
+    };
+    this.childCurrentStylesChange.emit(this.childCurrentStyles)
+  }
+
 }
 
 export interface Border {
