@@ -62,4 +62,8 @@ export class BindingComponent implements OnInit {
     this.setCurrentStyles(toto.size,toto.radius)
   }
 
+  log($event: Record<string, string>) {
+    console.log($event);
+    this.currentStyles = $event
+  }
 }

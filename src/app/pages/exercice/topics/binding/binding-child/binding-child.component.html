@@ -8,6 +8,6 @@
       Border-Radius :
       <input type="number" name="radius" min="0" max="100" [(ngModel)]="childRadius">
     </label>
-    <button class="col-12 primary" (click)="emitBorderValues()">Mettre à jour le style</button>
+    <button class="col-12 primary" (click)="setCurrentStyles(childSize,childRadius)">Mettre à jour le style</button>
   </div>
 </div>
