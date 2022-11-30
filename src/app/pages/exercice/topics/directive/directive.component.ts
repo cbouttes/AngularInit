@@ -20,6 +20,7 @@ export class DirectiveComponent implements OnInit {
 
 
   addNew() {
+    console.log("addNew() : ");
     this.userColors.push({age: this.age, color: this.pref, nom: this.nom});
     this.nom = '';
     this.age= 18;
