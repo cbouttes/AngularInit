@@ -15,15 +15,15 @@
     <div class="col-6 row">
       <label class="col-12">
         ex: June 15, 2015 :
-        <input [(ngModel)]="date" disabled name="date" type="text">
+        <input [value]="date | date:'mediumDate'" disabled name="date" type="text">
       </label>
       <label class="col-12">
         ex: 9:03 AM :
-        <input [(ngModel)]="date" disabled name="date" type="text">
+        <input [value]="date | date:'shortTime'" disabled name="date" type="text">
       </label>
       <label class="col-12">
         ex: Jun 15, 2015, 9:00:00 AM :
-        <input [(ngModel)]="date" disabled name="date" type="text">
+        <input [value]="date | date:'medium'" disabled name="date" type="text">
       </label>
     </div>
   </div>
