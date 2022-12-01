@@ -915,6 +915,141 @@ export class LibraryComponent {
         exemple: ROUTING_EXEMPLE,
         children: [RoutingComponent]
       }
+    ],
+    [
+      Topic.HTTP,
+      {
+        route: 'Http',
+        title: "Observables / HTTP",
+        texte: `<p>Un objet observable suit les changements d'état d'une donnée grâce à une interface permettant de gérer efficacement des traitements asynchrones.</p>
+<p>Ceci conviens particulièrement pour le traitement d'appels HTTP. Le module HttpClient utilise ce type d'objet afin de retourner le résultat des appels.</p>`,
+        icon: 'fa-solid fa-map-location',
+        chapitres: [
+          {
+            nom: 'Observables',
+            texte: `Un objet de type observable suit l'évolution d'une données ainsi que les évènements associés à cette évolution.
+Pour se faire il renvoie 3 types de notifications : `,
+            chapitres: [
+              {
+                nom: 'next',
+                texte: `Cette notification transmet la nouvelle valeur d'une donnée. Dans cette situation, on sait que le traitement attendu sur la donnée a été réalisé sans encombres.
+C'est le cas lorsqu'un EventEmitter (implémente l'interface observable) émet une nouvelle valeur :
+<code>this.childSizeChange.emit(this.childSize)
+// Agit ainsi : observable.next(value)</code>`
+              },{
+                nom: 'error',
+                texte: `Cette notification indique qu'un traitement attendu n'a pas pu être exécuté. Généralement cette notification retourne en valeur la raison de l'échec de l'exécution.
+Un EventEmitter notifiera de cette situation ainsi :
+<code>this.childSizeChange.error("Size too high")
+// Agit ainsi : observable.error(cause)</code>`
+              },{
+                nom: 'complete',
+                texte: `Un observable notifiant 'complete' indique qu'il ne retournera plus de nouvelles valeurs, l'ensemble ayant déjà été émit via 'next'. Attention cependant : une précédente émission délayée peut tout de même être récupérée apres une notification 'complete'.
+Un EventEmitter ayant rempli sa fonction le signalera comme suit :
+<code>this.childSizeChange.complete()
+// Agit ainsi : observable.complete() et ne retourne aucune valeur</code>`
+              }
+            ]
+          },
+          {
+            nom: 'Souscription',
+            texte: `Afin de réagir aux différentes notifications d'un observable on doit y 'souscrire', c'est à dire définir le comportement attendu pour une ou plusieurs notifications.`,
+            chapitres: [
+              {
+                nom: 'Lambda',
+                texte: `Une souscription effectuée via une fonction lambda n'est exécutée que sur réception d'une notification 'next'.
+On y décrit un traitement qui sera répété autant de fois que la notification 'next' sera reçue :
+<code>this.childSizeChange.subscribe((size) => console.log(size))
+this.childSizeChange.next(1);
+this.childSizeChange.next(2);
+this.childSizeChange.next(3);
+this.childSizeChange.next(1);
+// Produit le résultat suivant dans la console :
+// 1
+// 2
+// 3
+// 1</code>`
+              },{
+                nom: 'Observer',
+                texte: `Afin de traiter plusieurs cas lors d'une souscription, il faut utiliser un objet implémentant l'interface Observer.
+Cet objet doit donc être structuré comme tel :
+<code>this.childSizeChange.subscribe({
+    next: (size: number) => console.log(size), // obligatoire
+    error: (cause: any) => console.log(cause), // optionnel
+    complete: () => console.log("End of execution") // optionnel
+  })</code>`
+              }
+            ]
+          },
+
+          {
+            nom: 'HttpClient',
+            texte: `Le client Http fournis des méthodes de création de requêtes retournant des Observables pouvant être typées selon les besoins.
+(Note importante : il faut souscrire à l'observable retourné par la méthode afin de lancer effectivement la requête).
+Ce client viens avec un module devant être importé dans le fichier app.module.ts :
+<code>...
+import { HttpClientModule } from '@angular/common/http';
+...
+@NgModule({
+  imports: [
+    ...
+    HttpClientModule,
+    ...
+  ],
+  declarations: [...],
+  bootstrap: [...]
+})
+export class AppModule {}</code>
+Les appels étant généralement réutilisés et donc n'étant pas exclusif à un composant, il est utilisé dans des services :
+<code>import { Injectable } from '@angular/core';
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {Observable} from "rxjs";
+import {map} from "rxjs/operators";
+
+@Injectable({
+  providedIn: 'root'
+})
+export class PostService {
+
+  token: string = 'jwToken'
+  optionalHeaders = new HttpHeaders({
+    'Authorization':\`Bearer \${this.token}\`
+  })
+
+  constructor(private http: HttpClient) { }
+
+  all(): Observable<any>{
+    // Appel non typé
+    return this.http.get('url')
+  }
+
+  get(id: number): Observable<Post> {
+    // Appel typé : retourne un objet
+    return this.http.get<Post>(\`url/\${id}\`)
+  }
+
+  post(body: any): Observable<number> {
+    // Appel typé mais transformant l'objet via map avant le retour
+    return this.http.post<Post>('url',body).pipe(map(post => post.id))
+  }
+
+  update(body: any): Observable<Post> {
+    // Appel typé et incluant Headers
+    return this.http.put<Post>('url',body, {headers : this.optionalHeaders})
+  }
+
+  delete(id: number): Observable<never> {
+    // Appel typé never : indique que l'appel ne retourne jamais de valeur
+    return this.http.delete<never>(\`url/\${id}\`)
+  }
+}
+</code>
+Rappel : Il faut souscrire à l'observable afin de 'lancer' effectivement la requête vers l'URL.`,
+          }
+        ],
+        exemple: ROUTING_EXEMPLE,
+        children: [RoutingComponent]
+      }
     ]
   ]);
 
