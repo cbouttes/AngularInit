@@ -6,7 +6,6 @@
       <h3 style="font-weight: bold">{{info.title}}</h3>
       <div class="info-texte" [innerHTML]="info.texte | safe:'html'"></div>
       <ng-container *ngIf="info.exemple">
-        Exemple:
         <div class="row flex-max">
           <div class="col-6 col-12-small row  h100 overflow-auto">
             <template *ngIf="!info.exemple.desc" #vc></template>

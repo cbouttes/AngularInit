@@ -23,6 +23,7 @@ import {AppModule} from "../../app.module";
 import {AppRoutingModule} from "../../app-routing.module";
 import {StylePipe} from "../../pipes/style.pipe";
 import {NotesComponent} from "../../components/modal/notes/notes.component";
+import {BehaviorSubject} from "rxjs";
 
 @Component({
   selector: 'app-exercice',
@@ -94,6 +95,12 @@ export class ExerciceComponent implements OnDestroy, AfterViewInit {
         alert("Attention : Valeurs nulles !")
       }
       this.afterSubmit = this.toJsonString();
+      this.behaviorSubject = new BehaviorSubject<number>(0)
+      this.behaviorSubject.subscribe({
+        next: (newValue: number) => console.log('Nouvelle valeur : ' + newValue),
+        error: (cause: string) => alert("Cause d'erreur : " + cause),
+        complete: () => alert("Observable complété.")
+      })
     };
     const tmpCmp: any = Component({template, styles, host: {'class': 'row'}})(
       new (TemplateConstructorFunction as any)().constructor

@@ -93,3 +93,27 @@ export const DIRECTIVE_EXEMPLE: Exemple = {
     </ng-container>
 </div>`
 }
+
+export const OBSERVABLE_EXEMPLE: Exemple = {
+  content: `<!-- Définition et Souscription dans le .ts
+behaviorSubject = new BehaviorSubject<number>(0) // Valeur initiale : 0
+contructor() {
+    this.behaviorSubject.subscribe({
+      next: (newValue: number) => console.log('Nouvelle valeur : ' + newValue),
+      error: (cause: string) => alert("Cause d'erreur : " + cause),
+      complete: () => alert("Observable complété.")
+    });
+} -->
+
+<div class="d-flex justify-content-evenly flex-grow-1">
+    <div class="d-flex flex-column justify-content-center">
+        <button>Valeur actuelle : {{behaviorSubject.value}}</button>
+    </div>
+    <div class="d-flex flex-column justify-content-evenly">
+        <button (click)="behaviorSubject.next(behaviorSubject.value - 1)">Décrémenter</button>
+        <button (click)="behaviorSubject.next(behaviorSubject.value + 1)">Incrémenter</button>
+        <button (click)="behaviorSubject.complete()">Terminer</button>
+        <button (click)="behaviorSubject.error('Invalidation')">Invalider</button>
+    </div>
+</div>`
+}

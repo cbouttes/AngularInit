@@ -3,7 +3,15 @@ import {Routes} from "@angular/router";
 import {PipeComponent} from "../pages/exercice/topics/pipe/pipe.component";
 import {Chapitre} from "../models/cours";
 import {TemplateRef} from "@angular/core";
-import {DIRECTIVE_EXEMPLE, Exemple, FORMS_EXEMPLE, INSTALL_EXEMPLE, PIPE_EXEMPLE, ROUTING_EXEMPLE} from "./exemples";
+import {
+  DIRECTIVE_EXEMPLE,
+  Exemple,
+  FORMS_EXEMPLE,
+  INSTALL_EXEMPLE,
+  OBSERVABLE_EXEMPLE,
+  PIPE_EXEMPLE,
+  ROUTING_EXEMPLE
+} from "./exemples";
 import {InstallComponent} from "../pages/exercice/topics/install/install.component";
 import {BindingComponent} from "../pages/exercice/topics/binding/binding.component";
 import {ShematicsComponent} from "../pages/exercice/topics/shematics/shematics.component";
@@ -12,6 +20,7 @@ import {DirectiveComponent} from "../pages/exercice/topics/directive/directive.c
 import {FormsComponent} from "../pages/exercice/topics/forms/forms.component";
 import {routes_exercice} from "../app-routing.module";
 import {RoutingComponent} from "../pages/exercice/topics/routing/routing.component";
+import {ObservablesComponent} from "../pages/exercice/topics/observables/observables.component";
 
 export interface Info {
   route: string,
@@ -921,9 +930,11 @@ export class LibraryComponent {
       {
         route: 'Http',
         title: "Observables / HTTP",
-        texte: `<p>Un objet observable suit les changements d'état d'une donnée grâce à une interface permettant de gérer efficacement des traitements asynchrones.</p>
-<p>Ceci conviens particulièrement pour le traitement d'appels HTTP. Le module HttpClient utilise ce type d'objet afin de retourner le résultat des appels.</p>`,
-        icon: 'fa-solid fa-map-location',
+        texte: `<p>Un objet observable suit les changements d'état d'une donnée grâce à une interface permettant de gérer efficacement des traitements asynchrones.
+Ceci conviens particulièrement pour le traitement d'appels HTTP. Le module HttpClient utilise ce type d'objet afin de retourner le résultat des appels.</p>
+<p>Le BehaviorSubject est un type d'observable contenant une valeur par défaut mise à jour avec les évènements. Il se comporte de la même façon que tout autre observable, mais doit être initialisé avec une valeur de départ accessible sous le nom 'value'.</p>
+<p>Afin d'exploiter un observable, il faut y 'souscrire' : définir les comportements voulus lors du déclenchement des différentes notifications de changement d'état.</p>`,
+        icon: 'fa-solid fa-server',
         chapitres: [
           {
             nom: 'Observables',
@@ -936,13 +947,15 @@ Pour se faire il renvoie 3 types de notifications : `,
 C'est le cas lorsqu'un EventEmitter (implémente l'interface observable) émet une nouvelle valeur :
 <code>this.childSizeChange.emit(this.childSize)
 // Agit ainsi : observable.next(value)</code>`
-              },{
+              },
+              {
                 nom: 'error',
                 texte: `Cette notification indique qu'un traitement attendu n'a pas pu être exécuté. Généralement cette notification retourne en valeur la raison de l'échec de l'exécution.
 Un EventEmitter notifiera de cette situation ainsi :
 <code>this.childSizeChange.error("Size too high")
 // Agit ainsi : observable.error(cause)</code>`
-              },{
+              },
+              {
                 nom: 'complete',
                 texte: `Un observable notifiant 'complete' indique qu'il ne retournera plus de nouvelles valeurs, l'ensemble ayant déjà été émit via 'next'. Attention cependant : une précédente émission délayée peut tout de même être récupérée apres une notification 'complete'.
 Un EventEmitter ayant rempli sa fonction le signalera comme suit :
@@ -969,7 +982,8 @@ this.childSizeChange.next(1);
 // 2
 // 3
 // 1</code>`
-              },{
+              },
+              {
                 nom: 'Observer',
                 texte: `Afin de traiter plusieurs cas lors d'une souscription, il faut utiliser un objet implémentant l'interface Observer.
 Cet objet doit donc être structuré comme tel :
@@ -981,7 +995,6 @@ Cet objet doit donc être structuré comme tel :
               }
             ]
           },
-
           {
             nom: 'HttpClient',
             texte: `Le client Http fournis des méthodes de création de requêtes retournant des Observables pouvant être typées selon les besoins.
@@ -1047,8 +1060,8 @@ export class PostService {
 Rappel : Il faut souscrire à l'observable afin de 'lancer' effectivement la requête vers l'URL.`,
           }
         ],
-        exemple: ROUTING_EXEMPLE,
-        children: [RoutingComponent]
+        exemple: OBSERVABLE_EXEMPLE,
+        children: [ObservablesComponent]
       }
     ]
   ]);
