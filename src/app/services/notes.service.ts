@@ -19,7 +19,6 @@ export class NotesService {
   }
 
   getNote(topic: Topic):string {
-    console.log(this.notes)
     return this.notes.get(topic) || '';
   }
 }

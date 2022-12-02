@@ -39,6 +39,7 @@ import { RoutingComponent } from './pages/exercice/topics/routing/routing.compon
 import { NotesComponent } from './components/modal/notes/notes.component';
 import {NgxColorsModule} from "ngx-colors";
 import { PresentationPipe } from './pipes/presentation.pipe';
+import { ObservablesComponent } from './pages/exercice/topics/observables/observables.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import { PresentationPipe } from './pipes/presentation.pipe';
     FormsComponent,
     RoutingComponent,
     NotesComponent,
-    PresentationPipe
+    PresentationPipe,
+    ObservablesComponent
   ],
   imports: [
     BrowserModule,
